@@ -7,3 +7,8 @@
 **• 精细化RAG Pipeline设计**：独立设计Query→Hybrid Retrieval →Re-Rank→Context Assembly→LLM Generation全链路流程；引入Lost in the Middle优化策略与上下文窗口控制机制，提升长文档场景下的关键信息利用率。
 
 **• 量化成果**：独立编写~20个核心脚本文件，实现~2000行干净规范的Python代码；引入父子索引与BGE-Reranker 后，检索准确率（Hit Rate@5）提升50%，回答准确率显著提升；通过拒答机制拦截了30%范围外的无关恶意提问。
+
+
+
+**效果展示图：**
+<img width="689" height="841" alt="{D5D1D1BC-74BA-40B1-9F88-D7F9B4A5CF1B}" src="https://github.com/user-attachments/assets/d53d1a51-13db-4a2b-a5c9-6beda3954df9" />
