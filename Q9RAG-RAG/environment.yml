@@ -1,0 +1,40 @@
+name: Q9RAG
+channels:
+  - conda-forge
+  - pytorch
+  - defaults
+dependencies:
+  # --- 第一层：系统级地基 (由 Mamba/Micromamba 负责) ---
+  - python=3.11
+  - pip
+  - openssl
+  - sqlite
+  - vc                # 显式提供核心运行库
+  - vs2015_runtime    # 显式提供核心运行库
+  - pyarrow           # 依然建议留在 Conda，它是高性能二进制库
+
+  # --- 第二层：应用级逻辑 (由 Pip 负责，确保兼容性) ---
+  - pip:
+      # 数学基石 (从 Conda 转移到 Pip 以避开静默退出问题)
+      - numpy
+      - pandas
+
+      # Web 框架
+      - fastapi==0.127.0
+      - uvicorn==0.40.0
+      - pydantic==2.12.5
+
+      # AI 与大模型组件
+      - langchain-community==0.4.1
+      - langchain-huggingface==1.2.0
+      - accelerate==1.12.0
+      - peft==0.18.0
+      - sentencepiece==0.2.1
+      - datasets==4.4.2
+      - flagembedding==1.3.5
+
+      # 向量数据库驱动与工具
+      - faiss-cpu
+      - python-dotenv==1.2.1
+      - requests-toolbelt==1.0.0
+      - tqdm==4.67.1
