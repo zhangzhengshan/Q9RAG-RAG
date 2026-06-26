@@ -44,22 +44,22 @@ def test_rag_chat_flow():
         # 验证回答长度
         if len(answer_text) > 10:
             print(f"✅ 步骤2成功: 回答内容长度符合要求 ({len(answer_text)} 字)")
-            print(f"💡 回答内容: {answer_text}")
+            print(f" 回答内容: {answer_text}")
         else:
             print(f"❌ 步骤2验证失败: 回答内容过短（长度：{len(answer_text)}）")
-            print(f"💡 回答内容: {answer_text}")
+            print(f" 回答内容: {answer_text}")
 
         # 打印检索到的文档数量
         retrieved_count = len(retrieved_docs)
-        print(f"💡 检索到的文档数量: {retrieved_count}")
+        print(f" 检索到的文档数量: {retrieved_count}")
         if retrieved_count > 0:
-            print(f"💡 检索文档预览: {[doc[:50] + '...' if isinstance(doc, str) else doc for doc in retrieved_docs]}")
+            print(f" 检索文档预览: {[doc[:50] + '...' if isinstance(doc, str) else doc for doc in retrieved_docs]}")
 
     except requests.exceptions.RequestException as e:
         print(f"❌ 步骤2失败: 发送消息出错，错误信息: {str(e)}")
         if hasattr(e, 'response') and e.response is not None:
-            print(f"💡 服务器返回状态码: {e.response.status_code}")
-            print(f"💡 服务器返回详情: {e.response.text}")
+            print(f" 服务器返回状态码: {e.response.status_code}")
+            print(f" 服务器返回详情: {e.response.text}")
         return
 
     # 关键：添加延时，规避异步写入后立即查询的延迟问题
@@ -81,7 +81,7 @@ def test_rag_chat_flow():
         history_count = len(chat_history)
 
         print(f"\n✅ 步骤3成功: 获取历史记录接口调用正常")
-        print(f"💡 历史记录总条数: {history_count}")
+        print(f" 历史记录总条数: {history_count}")
 
         # 验证历史记录条数（用户+助手消息，至少2条）
         if history_count >= 2:
@@ -92,13 +92,13 @@ def test_rag_chat_flow():
             if first_msg.get("role") == "user" and second_msg.get("role") == "assistant":
                 print("✅ 历史记录角色顺序验证通过")
             else:
-                print(f"⚠️  历史记录角色顺序异常: 第一条角色={first_msg.get('role')}, 第二条角色={second_msg.get('role')}")
+                print(f"历史记录角色顺序异常: 第一条角色={first_msg.get('role')}, 第二条角色={second_msg.get('role')}")
         else:
             print(f"❌ 步骤3验证失败: 历史记录条数不足（当前{history_count}条，要求≥2条）")
 
         # 打印完整历史记录，便于排查
         if chat_history:
-            print(f"\n💡 完整历史记录:")
+            print(f"\n💡完整历史记录:")
             for idx, msg in enumerate(chat_history):
                 role = msg.get("role", "未知角色")
                 content = msg.get("content", "") or msg.get("query", "") or msg.get("answer", "")
@@ -107,8 +107,8 @@ def test_rag_chat_flow():
     except requests.exceptions.RequestException as e:
         print(f"❌ 步骤3失败: 无法获取历史记录，错误信息: {str(e)}")
         if hasattr(e, 'response') and e.response is not None:
-            print(f"💡 服务器返回状态码: {e.response.status_code}")
-            print(f"💡 服务器返回详情: {e.response.text}")
+            print(f" 服务器返回状态码: {e.response.status_code}")
+            print(f"服务器返回详情: {e.response.text}")
         return
 
 if __name__ == "__main__":
