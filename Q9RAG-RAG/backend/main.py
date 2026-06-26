@@ -47,14 +47,14 @@ state = AppState()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # 启动时：加载模型与索引
-    print("🚀 [RAG大师] 正在初始化全栈 RAG 引擎...")
+    print("正在初始化全栈 RAG 引擎...")
     state.retriever = Retriever.from_config(CONFIG)
     state.llm_client = LLMClient()
     # 默认使用内存存储，如需分布式可替换为 RedisSessionStore
     state.session_store = InMemorySessionStore(ttl=SESSION_TTL)
     yield
     # 关闭时：清理资源（如有必要）
-    print(" [RAG大师] 引擎已安全关闭。")
+    print(" 引擎已安全关闭。")
 
 
 app = FastAPI(title="神哲学家 RAG 系统", lifespan=lifespan)
